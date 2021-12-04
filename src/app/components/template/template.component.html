@@ -1,29 +1,58 @@
 <h4>Formularios <small> template </small></h4>
 <hr>
-<form autocomplete="off">
+
+<!-- hacemos una referencia local con #nombre -->
+<form autocomplete="off" (ngSubmit)="guardar(tempForm)" #tempForm="ngForm">
 
     <div>
-
-        <div class="form-group row">
+        <!-- las validaciones se hacen por medio de clases en el html propias de angular         -->
+        <div class="form-group row mb-3">
             <label class="col-2 col-form-label">Nombre</label>
+
+            <!-- ngModel se coloca con corchetes porque solo cambiamos informacion desde aqui -->
             <div class="col-8">
-                <input class="form-control" type="text" placeholder="Nombre">
+                <input class="form-control" 
+                name="nombre"
+                [class.is-invalid] = "nombre.invalid && nombre.touched"
+                [ngModel] = "usuario.nombre" 
+                type="text" 
+                required
+                minlength="3"
+                #nombre = "ngModel"
+                placeholder="Nombre">
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="form-group row mb-3">
             <label class="col-2 col-form-label">Apellido</label>
             <div class="col-8">
-                <input class="form-control" type="text" placeholder="Apellido">
+                <input class="form-control" 
+                type="text"
+                name="apellido"
+                [class.is-invalid] = "apellido.invalid && apellido.touched"
+                [ngModel] = "usuario.apellido"
+                required
+                minlength="3"
+                #apellido = "ngModel"
+                placeholder="Apellido">
             </div>
         </div>
 
     </div>
 
-    <div class="form-group row">
+    <div class="form-group row mb-3">
         <label class="col-2 col-form-label">Correo</label>
         <div class="col-8">
-            <input class="form-control" type="email" placeholder="Correo electrónico">
+            <!-- validamos el email con uanexpresion regular -->
+            <input class="form-control" 
+            type="email" 
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+            required
+            [class.is-invalid] = "correo.invalid && correo.touched"
+            placeholder="Correo electrónico"
+            [ngModel] = "usuario.correo"
+            name="correo"
+            #correo = "ngModel">
         </div>
     </div>
 

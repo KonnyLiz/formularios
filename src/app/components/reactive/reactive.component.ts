@@ -12,4 +12,8 @@ export class ReactiveComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  guardar(){
+    console.log('submir del form');
+  }
+
 }
