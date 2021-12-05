@@ -20,6 +20,8 @@
                 minlength="3"
                 #nombre = "ngModel"
                 placeholder="Nombre">
+                <small *ngIf="nombre.invalid && nombre.touched"
+                class="form-text text-danger">Ingrese 3 letras.</small>
             </div>
         </div>
 
@@ -35,6 +37,8 @@
                 minlength="3"
                 #apellido = "ngModel"
                 placeholder="Apellido">
+                <small *ngIf="apellido.invalid && apellido.touched"
+                class="form-text text-danger">Ingrese 3 letras.</small>
             </div>
         </div>
 
@@ -53,6 +57,8 @@
             [ngModel] = "usuario.correo"
             name="correo"
             #correo = "ngModel">
+            <small *ngIf="correo.invalid && correo.touched"
+                class="form-text text-danger">Ingrese un correo valido.</small>
         </div>
     </div>
 
