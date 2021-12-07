@@ -82,6 +82,42 @@
         </div>
     </div>
 
+    <div class="form-group row mb-3">
+        <label class="col-2 col-form-label">Genero</label>
+        <div class="col-8">
+            <div class="form-check form-check-inline">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Masculino
+                </label>
+                <input class="form-check-input" 
+                        type="radio" 
+                        value="M"
+                        [class.is-invalid] = "genero.invalid && genero.touched"
+                        [ngModel]="usuario.genero"
+                        name="genero"
+                        required
+                        #genero="ngModel">
+              </div>
+
+              <div class="form-check form-check-inline">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Femenino
+                </label>
+                <input class="form-check-input" 
+                        type="radio" 
+                        value="F"
+                        [class.is-invalid] = "genero.invalid && genero.touched"
+                        [ngModel]="usuario.genero"
+                        name="genero"
+                        required
+                        #genero="ngModel">
+              </div>
+            
+            <small *ngIf="genero.invalid && genero.touched"
+            class="form-text text-danger">Seleccione genero.</small>
+        </div>
+    </div>
+
     <div class="form-group row">
         <label class="col-2 col-form-label">&nbsp;</label>
         <div class="input-group col-md-8">

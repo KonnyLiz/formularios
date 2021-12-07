@@ -16,7 +16,8 @@ export class TemplateComponent implements OnInit {
     correo: 'konny@jojos.com',
 
     // le damos valor por defecto al select con el value
-    pais: ''
+    pais: 'SLV',
+    genero: 'F'
   }
 
   paises: PaisModel[] = [];
