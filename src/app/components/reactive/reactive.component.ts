@@ -23,29 +23,20 @@ export class ReactiveComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  get nombreInvalido() {
-    return this.formulario.get('nombre')?.invalid && this.formulario.get('nombre')?.touched;
-  }
-
-  get apellidoInvalido() {
-    return this.formulario.get('apellido')?.invalid && this.formulario.get('apellido')?.touched;
-  }
-
-  get correoInvalido() {
-    return this.formulario.get('correo')?.invalid && this.formulario.get('correo')?.touched;
-  }
-
-  get distritoInvalido() {
-    return this.formulario.get('direccion.distrito')?.invalid && this.formulario.get('direccion.distrito')?.touched;
-  }
-
-  get ciudadInvalido() {
-    return this.formulario.get('direccion.ciudad')?.invalid && this.formulario.get('direccion.ciudad')?.touched;
+  campoInvalido(campo: string) {
+    return this.formulario.get(campo)?.invalid && this.formulario.get(campo)?.touched;
   }
 
   get pasatiempos() {
     // obtenemos un arreglo de elementos para el html
     return this.formulario.get('pasatiempos') as FormArray;
+  }
+
+  get pass2Invalido(){
+    const pass1 = this.formulario.get('pass1')?.value;
+    const pass2 = this.formulario.get('pass2')?.value;
+
+    return (pass1 === pass2 )? false : true;
   }
 
   crearFormularo() {
@@ -58,11 +49,16 @@ export class ReactiveComponent implements OnInit {
       nombre: ['', [Validators.required, Validators.minLength(5)]],
       apellido: ['', [Validators.required, this.validaciones.noAmaya]],
       correo: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      pass1: ['', Validators.required],
+      pass2: [''],
 
       // definimos un conjunto de propiedades para direccion
       direccion: this.fb.group({
         distrito: ['', Validators.required],
         ciudad: ['', Validators.required],
+      }, {
+        // hacemos validaciones ya cuando el form esta construido
+        validators: this.validaciones.passIguales('pass1', 'pass2')
       }),
 
       // definimos un nuevo arreglo 
