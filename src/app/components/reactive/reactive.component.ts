@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-reactive',
@@ -15,6 +15,7 @@ export class ReactiveComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.formulario = this.crearFormularo();
+    this.cargarFormulario();
   }
 
   ngOnInit(): void {
@@ -40,6 +41,11 @@ export class ReactiveComponent implements OnInit {
     return this.formulario.get('direccion.ciudad')?.invalid && this.formulario.get('direccion.ciudad')?.touched;
   }
 
+  get pasatiempos(){
+    // obtenemos un arreglo de elementos para el html
+    return this.formulario.get('pasatiempos') as FormArray;
+  }
+
   crearFormularo() {
     return this.fb.group({
       // son deficiones de controles
@@ -50,10 +56,30 @@ export class ReactiveComponent implements OnInit {
       nombre: ['', [Validators.required, Validators.minLength(5)]],
       apellido: ['', [Validators.required, Validators.minLength(5)]],
       correo: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      
+      // definimos un conjunto de propiedades para direccion
       direccion: this.fb.group({
         distrito: ['', Validators.required],
-        ciudad: ['', Validators.required]
-      })
+        ciudad: ['', Validators.required],
+      }),
+
+      // definimos un nuevo arreglo 
+      // lo minimo es un arreglo vacio
+      pasatiempos: this.fb.array([[], []])
+    });
+  }
+
+  cargarFormulario() {
+    // cuando se carfa un form debe de haber una estructura modelo exacta 
+    // para pasarle el objeto, si no habra que agregar campos vacios para que no de error
+
+    // para evitar el problema anterior, podemos usar reset en lugar de setvalue
+    //  el reset simplemente ignorara los campos que no existen
+
+    // this.formulario.setValue({
+    this.formulario.reset({
+      nombre: 'Konny',
+      apellido: 'Amaya'
     });
   }
 
@@ -66,9 +92,13 @@ export class ReactiveComponent implements OnInit {
         } else {
           cntl.markAsTouched();
         }
-
       });
     }
+
+    // despues de guardar los datos, hay que hacer un reset de info del form
+    this.formulario.reset({
+      nombre: 'alguno'
+    });
   }
 
 }

@@ -50,7 +50,38 @@
                 <small *ngIf="ciudadInvalido" class="form-text text-danger">Ingrese una cuidad
                     valida.</small>
             </div>
+        </div>
+    </div>
 
+    <div class="form-group row mb-3">
+        <div class="col">
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Pasatiempo</th>
+                        <th>Borrar</th>
+                    </tr>
+                </thead>
+                <tbody formArrayName="pasatiempos">
+                    <tr *ngFor="let c of pasatiempos.controls; let i = index">
+                        <td>{{ i + 1}}</td>
+                        <td>
+                            <!-- igualamos el controlname al indx para tener infinitos -->
+                            <input class="form-control" type="text" [formControlName]="i">
+                        </td>
+                        <td>
+                            <button class="btn btn-danger" type="button">Borrar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <small *ngIf="correoInvalido" class="form-text text-danger">Ingrese un correo
+                valido.</small> -->
+
+            <button class="btn btn-outline-primary mt-3" type="button">
+                + Agregar
+            </button>
         </div>
     </div>
 
