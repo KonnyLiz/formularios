@@ -1,39 +1,78 @@
 <h4>Formularios <small> reactivos </small></h4>
 <hr>
-<form autocomplete="off" (ngSubmit)="guardar()">
+<form autocomplete="off" (ngSubmit)="guardar()" [formGroup]="formulario">
 
-    <div>
 
-        <div class="form-group row mb-3">
-            <label class="col-2 col-form-label">Nombre</label>
-            <div class="col-8">
-                <input class="form-control" type="text" placeholder="Nombre">
-            </div>
+
+    <div class="form-group row mb-3">
+        <label class="col-2 col-form-label">Nombre</label>
+        <div class="col">
+            <input [class.is-invalid]="nombreInvalido" formControlName="nombre" class="form-control" type="text"
+                placeholder="Nombre">
+            <small *ngIf="nombreInvalido" class="form-text text-danger">Ingrese un nombre
+                valido.</small>
         </div>
+    </div>
 
-        <div class="form-group row mb-3">
-            <label class="col-2 col-form-label">Apellido</label>
-            <div class="col-8">
-                <input class="form-control" type="text" placeholder="Apellido">
-            </div>
+    <div class="form-group row mb-3">
+        <label class="col-2 col-form-label">Apellido</label>
+        <div class="col">
+            <input [class.is-invalid]="apellidoInvalido" formControlName="apellido" class="form-control" type="text"
+                placeholder="Apellido">
+            <small *ngIf="apellidoInvalido" class="form-text text-danger">Ingrese un apellido
+                valido.</small>
         </div>
-
     </div>
 
     <div class="form-group row mb-3">
         <label class="col-2 col-form-label">Correo</label>
-        <div class="col-8">
-            <input class="form-control" type="email" placeholder="Correo electrónico">
+        <div class="col">
+            <input [class.is-invalid]="correoInvalido" formControlName="correo" class="form-control" type="email"
+                placeholder="Correo electrónico">
+            <small *ngIf="correoInvalido" class="form-text text-danger">Ingrese un correo
+                valido.</small>
+        </div>
+    </div>
+
+    <!-- Tambien nombramos el conjunto de controles con formgroup name -->
+    <div class="form-group row mb-3" formGroupName="direccion">
+        <div class="row">
+            <label class="col-2 col-form-label">Direccion</label>
+            <div class="col">
+                <input [class.is-invalid]="distritoInvalido" formControlName="distrito" class="form-control" type="text"
+                    placeholder="Distrito">
+                <small *ngIf="distritoInvalido" class="form-text text-danger">Ingrese un distrito
+                    valido.</small>
+            </div>
+            <div class="col">
+                <input [class.is-invalid]="ciudadInvalido" formControlName="ciudad" class="form-control" type="text"
+                    placeholder="ciudad">
+                <small *ngIf="ciudadInvalido" class="form-text text-danger">Ingrese una cuidad
+                    valida.</small>
+            </div>
+
         </div>
     </div>
 
     <div class="form-group row">
         <label class="col-2 col-form-label">&nbsp;</label>
-        <div class="input-group col-md-8">
-            <button type="submit" class="btn btn-outline-primary btn-block">
+        <div class="col">
+            <button type="submit" class="btn btn-outline-primary">
                 Guardar
             </button>
         </div>
     </div>
 
 </form>
+
+<!-- veamos el estado del form -->
+<hr>
+<pre>
+    estado del form: {{ formulario.valid }}
+    <br>
+    Status: {{ formulario.status }}
+</pre>
+
+<pre>
+    {{ formulario.value | json}}
+</pre>
