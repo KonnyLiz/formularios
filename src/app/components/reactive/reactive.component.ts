@@ -41,7 +41,7 @@ export class ReactiveComponent implements OnInit {
     return this.formulario.get('direccion.ciudad')?.invalid && this.formulario.get('direccion.ciudad')?.touched;
   }
 
-  get pasatiempos(){
+  get pasatiempos() {
     // obtenemos un arreglo de elementos para el html
     return this.formulario.get('pasatiempos') as FormArray;
   }
@@ -56,7 +56,7 @@ export class ReactiveComponent implements OnInit {
       nombre: ['', [Validators.required, Validators.minLength(5)]],
       apellido: ['', [Validators.required, Validators.minLength(5)]],
       correo: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      
+
       // definimos un conjunto de propiedades para direccion
       direccion: this.fb.group({
         distrito: ['', Validators.required],
@@ -81,6 +81,10 @@ export class ReactiveComponent implements OnInit {
       nombre: 'Konny',
       apellido: 'Amaya'
     });
+
+    // cargando de valores el array
+    // lo recorremos con un foeach y le asignamos el nombre al valor, creando un control
+    ['comer', 'ver anime'].forEach(valor => this.pasatiempos.push(this.fb.control(valor)));
   }
 
   guardar() {
@@ -99,6 +103,15 @@ export class ReactiveComponent implements OnInit {
     this.formulario.reset({
       nombre: 'alguno'
     });
+  }
+
+  addPasatiempo() {
+    this.pasatiempos.push(this.fb.control('', Validators.required))
+  }
+
+  deletePasatiempo(i: number) {
+    // borramos el pasatiempo segun el indice
+    this.pasatiempos.removeAt(i);
   }
 
 }

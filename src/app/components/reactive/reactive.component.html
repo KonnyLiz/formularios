@@ -71,7 +71,7 @@
                             <input class="form-control" type="text" [formControlName]="i">
                         </td>
                         <td>
-                            <button class="btn btn-danger" type="button">Borrar</button>
+                            <button class="btn btn-danger" type="button"  (click)="deletePasatiempo(i)">Borrar</button>
                         </td>
                     </tr>
                 </tbody>
@@ -79,7 +79,7 @@
             <!-- <small *ngIf="correoInvalido" class="form-text text-danger">Ingrese un correo
                 valido.</small> -->
 
-            <button class="btn btn-outline-primary mt-3" type="button">
+            <button class="btn btn-outline-primary mt-3" type="button" (click)="addPasatiempo()">
                 + Agregar
             </button>
         </div>
