@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ValidacionesService } from 'src/app/services/validaciones.service';
 
 @Component({
   selector: 'app-reactive',
@@ -12,7 +13,8 @@ export class ReactiveComponent implements OnInit {
 
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private validaciones: ValidacionesService
   ) {
     this.formulario = this.crearFormularo();
     this.cargarFormulario();
@@ -54,7 +56,7 @@ export class ReactiveComponent implements OnInit {
       // las validaciones son las que se hacen antes de enviar el form
 
       nombre: ['', [Validators.required, Validators.minLength(5)]],
-      apellido: ['', [Validators.required, Validators.minLength(5)]],
+      apellido: ['', [Validators.required, this.validaciones.noAmaya]],
       correo: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
 
       // definimos un conjunto de propiedades para direccion
