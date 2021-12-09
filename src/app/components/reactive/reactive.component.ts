@@ -17,14 +17,11 @@ export class ReactiveComponent implements OnInit {
     private validaciones: ValidacionesService
   ) {
     this.formulario = this.crearFormularo();
+    this.crearListeners();
     this.cargarFormulario();
   }
 
   ngOnInit(): void {
-  }
-
-  campoInvalido(campo: string) {
-    return this.formulario.get(campo)?.invalid && this.formulario.get(campo)?.touched;
   }
 
   get pasatiempos() {
@@ -32,11 +29,15 @@ export class ReactiveComponent implements OnInit {
     return this.formulario.get('pasatiempos') as FormArray;
   }
 
-  get pass2Invalido(){
+  get pass2Invalido() {
     const pass1 = this.formulario.get('pass1')?.value;
     const pass2 = this.formulario.get('pass2')?.value;
 
-    return (pass1 === pass2 )? false : true;
+    return (pass1 === pass2) ? false : true;
+  }
+
+  campoInvalido(campo: string) {
+    return this.formulario.get(campo)?.invalid && this.formulario.get(campo)?.touched;
   }
 
   crearFormularo() {
@@ -70,6 +71,19 @@ export class ReactiveComponent implements OnInit {
       // lo minimo es un arreglo vacio
       pasatiempos: this.fb.array([])
     });
+  }
+
+  // metodo para escuchar los cambios que hay en el form
+  crearListeners() {
+
+    // se dispara las validaciones de form y lo imprime en consola cada vez que hay cambio
+    this.formulario.valueChanges.subscribe(res => console.log(res));
+
+    // para observar el status del form
+    this.formulario.statusChanges.subscribe(res => console.log(res));
+
+    // revisnado los cambios de un campo
+    this.formulario.get('nombre')?.valueChanges.subscribe(res => console.log(res));
   }
 
   cargarFormulario() {

@@ -39,14 +39,14 @@ export class ValidacionesService {
     }
   }
 
-  usuarioExiste(control: FormControl): Promise<ErrorValidacion> | Observable<ErrorValidacion> | null {
+  usuarioExiste(control: FormControl): Promise<ErrorValidacion> | null {
     // si es una peticion http, es conveniente que manejemos el error
     return new Promise((res, rej) => {
       setTimeout(() => {
         if (control.value === 'kon') {
-          res({ existeUsuario: true });
+          return { existeUsuario: true };
         } else {
-          res({ existeUsuario: false });
+          return null;
         }
       }, 3500);
     });
