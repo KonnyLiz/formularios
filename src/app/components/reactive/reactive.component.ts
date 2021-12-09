@@ -46,11 +46,16 @@ export class ReactiveComponent implements OnInit {
       // y el resto son las validaciones
       // las validaciones son las que se hacen antes de enviar el form
 
+      // primer argumento, valor por defecto
+      // segundo, validacion sincrona
+      // tercero, asincrona
+
       nombre: ['', [Validators.required, Validators.minLength(5)]],
       apellido: ['', [Validators.required, this.validaciones.noAmaya]],
       correo: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      usuario: ['', , this.validaciones.usuarioExiste],
       pass1: ['', Validators.required],
-      pass2: [''],
+      pass2: ['', Validators.required],
 
       // definimos un conjunto de propiedades para direccion
       direccion: this.fb.group({
@@ -58,12 +63,12 @@ export class ReactiveComponent implements OnInit {
         ciudad: ['', Validators.required],
       }, {
         // hacemos validaciones ya cuando el form esta construido
-        validators: this.validaciones.passIguales('pass1', 'pass2')
+        // validators: this.validaciones.passIguales('pass1', 'pass2')
       }),
 
       // definimos un nuevo arreglo 
       // lo minimo es un arreglo vacio
-      pasatiempos: this.fb.array([[], []])
+      pasatiempos: this.fb.array([])
     });
   }
 
@@ -77,7 +82,14 @@ export class ReactiveComponent implements OnInit {
     // this.formulario.setValue({
     this.formulario.reset({
       nombre: 'Konny',
-      apellido: 'Amaya'
+      apellido: 'Amaya',
+      pass1: '123',
+      pass2: '123',
+      correo: 'konnylizamaya@gmail.com',
+      direccion: {
+        distrito: 'Federal',
+        ciudad: 'Otawa'
+      }
     });
 
     // cargando de valores el array
